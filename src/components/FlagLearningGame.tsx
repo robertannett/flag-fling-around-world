@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { FlagCard } from './FlagCard';
 import { QuizOption } from './QuizOption';
 import { WelcomeScreen } from './WelcomeScreen';
+import { Scoreboard } from './Scoreboard';
 import { useToast } from '@/hooks/use-toast';
 import { Trophy, Star, RotateCcw, Heart, Target } from 'lucide-react';
 
@@ -96,11 +97,12 @@ export const FlagLearningGame: React.FC = () => {
   const [currentFlagIndex, setCurrentFlagIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
   const [lives, setLives] = useState(3);
+  const [flagsAnswered, setFlagsAnswered] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isRevealed, setIsRevealed] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [gameWon, setGameWon] = useState(false);
   const { toast } = useToast();
 
   const startGame = () => {
@@ -114,17 +116,12 @@ export const FlagLearningGame: React.FC = () => {
 
   const currentFlag = flagsData[currentFlagIndex];
 
+  // Track best streak
   useEffect(() => {
-    if (currentFlagIndex >= flagsData.length) {
-      setGameWon(true);
-      setGameOver(true);
-      toast({
-        title: "🎉 Congratulations!",
-        description: `You've completed all flags! Final score: ${score}`,
-        duration: 5000,
-      });
+    if (streak > bestStreak) {
+      setBestStreak(streak);
     }
-  }, [currentFlagIndex, score, toast]);
+  }, [streak, bestStreak]);
 
   const handleOptionSelect = (option: string) => {
     if (isRevealed || gameOver) return;
@@ -137,6 +134,7 @@ export const FlagLearningGame: React.FC = () => {
     if (isCorrect) {
       setScore(score + (10 * (streak + 1)));
       setStreak(streak + 1);
+      setFlagsAnswered(flagsAnswered + 1);
       toast({
         title: "✅ Correct!",
         description: `+${10 * (streak + 1)} points! Streak: ${streak + 1}`,
@@ -145,6 +143,7 @@ export const FlagLearningGame: React.FC = () => {
     } else {
       setStreak(0);
       setLives(lives - 1);
+      setFlagsAnswered(flagsAnswered + 1);
       toast({
         title: "❌ Wrong!",
         description: `The correct answer was ${currentFlag.country}`,
@@ -163,11 +162,11 @@ export const FlagLearningGame: React.FC = () => {
   };
 
   const nextFlag = () => {
-    if (currentFlagIndex < flagsData.length - 1) {
-      setCurrentFlagIndex(currentFlagIndex + 1);
-      setSelectedOption(null);
-      setIsRevealed(false);
-    }
+    // Generate a random index for endless gameplay
+    const randomIndex = Math.floor(Math.random() * flagsData.length);
+    setCurrentFlagIndex(randomIndex);
+    setSelectedOption(null);
+    setIsRevealed(false);
   };
 
   const resetGame = () => {
@@ -175,11 +174,12 @@ export const FlagLearningGame: React.FC = () => {
     setCurrentFlagIndex(0);
     setScore(0);
     setStreak(0);
+    setBestStreak(0);
     setLives(3);
+    setFlagsAnswered(0);
     setSelectedOption(null);
     setIsRevealed(false);
     setGameOver(false);
-    setGameWon(false);
     toast({
       title: "🎮 Game Reset!",
       description: "Ready to play again!",
@@ -187,7 +187,7 @@ export const FlagLearningGame: React.FC = () => {
     });
   };
 
-  const progress = ((currentFlagIndex + 1) / flagsData.length) * 100;
+  // Remove progress calculation since game is now endless
 
   if (!gameStarted) {
     return <WelcomeScreen onStartGame={startGame} />;
@@ -195,47 +195,50 @@ export const FlagLearningGame: React.FC = () => {
 
   if (gameOver) {
     return (
-      <div className="min-h-screen bg-gradient-background flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-card/95 backdrop-blur-sm border-2 shadow-glow">
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              {gameWon ? (
-                <Trophy className="w-16 h-16 text-warning animate-bounce-in" />
-              ) : (
+      <div className="min-h-screen bg-gradient-background p-4">
+        <div className="max-w-2xl mx-auto space-y-6">
+          <Card className="bg-card/95 backdrop-blur-sm border-2 shadow-glow">
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
                 <Target className="w-16 h-16 text-destructive animate-bounce-in" />
-              )}
-            </div>
-            <CardTitle className="text-2xl font-bold">
-              {gameWon ? "🎉 Congratulations!" : "💔 Game Over!"}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="text-center space-y-2">
-              <div className="text-3xl font-bold text-primary">{score}</div>
-              <div className="text-muted-foreground">Final Score</div>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center">
-                <div className="text-xl font-bold text-accent">{streak}</div>
-                <div className="text-sm text-muted-foreground">Best Streak</div>
               </div>
-              <div className="text-center">
-                <div className="text-xl font-bold text-warning">{currentFlagIndex}</div>
-                <div className="text-sm text-muted-foreground">Flags Seen</div>
+              <CardTitle className="text-2xl font-bold">💔 Game Over!</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="text-center space-y-2">
+                <div className="text-3xl font-bold text-primary">{score}</div>
+                <div className="text-muted-foreground">Final Score</div>
               </div>
-            </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center">
+                  <div className="text-xl font-bold text-accent">{bestStreak}</div>
+                  <div className="text-sm text-muted-foreground">Best Streak</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-xl font-bold text-warning">{flagsAnswered}</div>
+                  <div className="text-sm text-muted-foreground">Flags Answered</div>
+                </div>
+              </div>
 
-            <Button 
-              variant="hero" 
-              onClick={resetGame}
-              className="w-full"
-            >
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Play Again
-            </Button>
-          </CardContent>
-        </Card>
+              <Button 
+                variant="hero" 
+                onClick={resetGame}
+                className="w-full"
+              >
+                <RotateCcw className="w-4 h-4 mr-2" />
+                Play Again
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Scoreboard 
+            currentScore={score}
+            currentStreak={bestStreak}
+            currentFlags={flagsAnswered}
+            onNewScore={() => {}}
+          />
+        </div>
       </div>
     );
   }
@@ -269,13 +272,12 @@ export const FlagLearningGame: React.FC = () => {
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">
-                  Flag {currentFlagIndex + 1} of {flagsData.length}
+                  Flags Answered: {flagsAnswered}
                 </span>
                 <span className="text-muted-foreground">
                   🔥 Streak: {streak}
                 </span>
               </div>
-              <Progress value={progress} className="h-2" />
             </div>
           </CardHeader>
         </Card>
