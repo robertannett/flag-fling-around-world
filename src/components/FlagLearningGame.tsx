@@ -21,6 +21,26 @@ import ukFlag from '@/assets/flags/uk.png';
 import australiaFlag from '@/assets/flags/australia.png';
 import southKoreaFlag from '@/assets/flags/south-korea.png';
 import mexicoFlag from '@/assets/flags/mexico.png';
+import indiaFlag from '@/assets/flags/india.png';
+import chinaFlag from '@/assets/flags/china.png';
+import russiaFlag from '@/assets/flags/russia.png';
+import spainFlag from '@/assets/flags/spain.png';
+import italyFlag from '@/assets/flags/italy.png';
+import netherlandsFlag from '@/assets/flags/netherlands.png';
+import swedenFlag from '@/assets/flags/sweden.png';
+import norwayFlag from '@/assets/flags/norway.png';
+import denmarkFlag from '@/assets/flags/denmark.png';
+import switzerlandFlag from '@/assets/flags/switzerland.png';
+import polandFlag from '@/assets/flags/poland.png';
+import irelandFlag from '@/assets/flags/ireland.png';
+import portugalFlag from '@/assets/flags/portugal.png';
+import greeceFlag from '@/assets/flags/greece.png';
+import turkeyFlag from '@/assets/flags/turkey.png';
+import argentinaFlag from '@/assets/flags/argentina.png';
+import chileFlag from '@/assets/flags/chile.png';
+import newZealandFlag from '@/assets/flags/new-zealand.png';
+import belgiumFlag from '@/assets/flags/belgium.png';
+import austriaFlag from '@/assets/flags/austria.png';
 
 interface FlagData {
   id: string;
@@ -89,6 +109,126 @@ const flagsData: FlagData[] = [
     country: 'Mexico',
     flag: mexicoFlag,
     options: ['Mexico', 'Italy', 'Ireland', 'Hungary']
+  },
+  {
+    id: 'india',
+    country: 'India',
+    flag: indiaFlag,
+    options: ['India', 'Niger', 'Ireland', 'Ivory Coast']
+  },
+  {
+    id: 'china',
+    country: 'China',
+    flag: chinaFlag,
+    options: ['China', 'Vietnam', 'North Korea', 'Myanmar']
+  },
+  {
+    id: 'russia',
+    country: 'Russia',
+    flag: russiaFlag,
+    options: ['Russia', 'Netherlands', 'Slovenia', 'Slovakia']
+  },
+  {
+    id: 'spain',
+    country: 'Spain',
+    flag: spainFlag,
+    options: ['Spain', 'Andorra', 'Portugal', 'Colombia']
+  },
+  {
+    id: 'italy',
+    country: 'Italy',
+    flag: italyFlag,
+    options: ['Italy', 'Ireland', 'Mexico', 'Hungary']
+  },
+  {
+    id: 'netherlands',
+    country: 'Netherlands',
+    flag: netherlandsFlag,
+    options: ['Netherlands', 'Russia', 'France', 'Luxembourg']
+  },
+  {
+    id: 'sweden',
+    country: 'Sweden',
+    flag: swedenFlag,
+    options: ['Sweden', 'Finland', 'Norway', 'Denmark']
+  },
+  {
+    id: 'norway',
+    country: 'Norway',
+    flag: norwayFlag,
+    options: ['Norway', 'Iceland', 'Sweden', 'Denmark']
+  },
+  {
+    id: 'denmark',
+    country: 'Denmark',
+    flag: denmarkFlag,
+    options: ['Denmark', 'Switzerland', 'Georgia', 'Tonga']
+  },
+  {
+    id: 'switzerland',
+    country: 'Switzerland',
+    flag: switzerlandFlag,
+    options: ['Switzerland', 'Denmark', 'Georgia', 'Tonga']
+  },
+  {
+    id: 'poland',
+    country: 'Poland',
+    flag: polandFlag,
+    options: ['Poland', 'Monaco', 'Indonesia', 'Czech Republic']
+  },
+  {
+    id: 'ireland',
+    country: 'Ireland',
+    flag: irelandFlag,
+    options: ['Ireland', 'Italy', 'India', 'Ivory Coast']
+  },
+  {
+    id: 'portugal',
+    country: 'Portugal',
+    flag: portugalFlag,
+    options: ['Portugal', 'Spain', 'Brazil', 'Morocco']
+  },
+  {
+    id: 'greece',
+    country: 'Greece',
+    flag: greeceFlag,
+    options: ['Greece', 'Uruguay', 'Israel', 'Finland']
+  },
+  {
+    id: 'turkey',
+    country: 'Turkey',
+    flag: turkeyFlag,
+    options: ['Turkey', 'Tunisia', 'Singapore', 'Pakistan']
+  },
+  {
+    id: 'argentina',
+    country: 'Argentina',
+    flag: argentinaFlag,
+    options: ['Argentina', 'Uruguay', 'Guatemala', 'Nicaragua']
+  },
+  {
+    id: 'chile',
+    country: 'Chile',
+    flag: chileFlag,
+    options: ['Chile', 'Texas', 'Puerto Rico', 'Czech Republic']
+  },
+  {
+    id: 'new-zealand',
+    country: 'New Zealand',
+    flag: newZealandFlag,
+    options: ['New Zealand', 'Australia', 'Fiji', 'Tuvalu']
+  },
+  {
+    id: 'belgium',
+    country: 'Belgium',
+    flag: belgiumFlag,
+    options: ['Belgium', 'Germany', 'Chad', 'Romania']
+  },
+  {
+    id: 'austria',
+    country: 'Austria',
+    flag: austriaFlag,
+    options: ['Austria', 'Latvia', 'Lebanon', 'Indonesia']
   }
 ];
 
